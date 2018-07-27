@@ -7,35 +7,35 @@ import { EZCodeAdalConfigs } from './ezcode-adalconfig.service';
 @Injectable()
 export class EZCodeAdalCallbackGuard implements CanActivate {
   private _loading: boolean;
-  
+
   constructor(private router: Router, private adalService: EZCodeAdalService, private configs: EZCodeAdalConfigs) {
 
-    }
-	
-	//canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    //const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-   // this.adalService.handleCallback();
-   // this._loading = true;
-   // return false;
+  }
+
+  //canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+  //const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  // this.adalService.handleCallback();
+  // this._loading = true;
+  // return false;
   //}
 
-    canActivate(state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        this.adalService.handleCallback();
-      var customLoginRedirect: string = this.configs.customRedirectAfterLogin;
-      if (this.adalService.userInfo) {
-        if (customLoginRedirect) {
-          this.router.navigate([customLoginRedirect]);
-       } else {
-          this.router.navigate(['']);
-        }
-            //this.router.navigate(['']);
-//            // var returnUrl = route.queryParams['returnUrl'];
-//            // if (!returnUrl) {
-//            //     this.router.navigate(['']);
-//            // } else {
-//            //     this.router.navigate([returnUrl], { queryParams: route.queryParams });
-//            // }
-       }
-       return false;
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    this.adalService.handleCallback();
+    var customLoginRedirect: string = this.configs.customRedirectAfterLogin;
+    if (this.adalService.userInfo) {
+      if (customLoginRedirect) {
+        this.router.navigate([customLoginRedirect]);
+      } else {
+        this.router.navigate(['']);
+      }
+      //this.router.navigate(['']);
+      //            // var returnUrl = route.queryParams['returnUrl'];
+      //            // if (!returnUrl) {
+      //            //     this.router.navigate(['']);
+      //            // } else {
+      //            //     this.router.navigate([returnUrl], { queryParams: route.queryParams });
+      //            // }
     }
+    return false;
+  }
 }

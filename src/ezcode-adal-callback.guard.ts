@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, NavigationExtras } from '@angular/router';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, NavigationExtras } from '@angular/router';
 import { EZCodeAdalService } from './ezcode-adal.service';
 import { EZCodeAdalConfigs } from './ezcode-adalconfig.service';
 
@@ -8,34 +8,34 @@ import { EZCodeAdalConfigs } from './ezcode-adalconfig.service';
 export class EZCodeAdalCallbackGuard implements CanActivate {
   private _loading: boolean;
   
-  constructor(private route: ActivatedRoute, private router: Router, private adalService: EZCodeAdalService, private configs: EZCodeAdalConfigs) {
+  constructor(private router: Router, private adalService: EZCodeAdalService, private configs: EZCodeAdalConfigs) {
 
     }
 	
-	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    this.adalService.handleCallback();
-    this._loading = true;
-    return false;
-  }
+	//canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    //const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+   // this.adalService.handleCallback();
+   // this._loading = true;
+   // return false;
+  //}
 
-    //canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-//        this.adalService.handleCallback();
-//      var customLoginRedirect: string = this.configs.customRedirectAfterLogin;
-//      if (this.adalService.userInfo) {
-//        if (customLoginRedirect) {
-//          this.router.navigate([customLoginRedirect]);
-//        } else {
-//          this.router.navigate(['']);
-//        }
-//            //this.router.navigate(['']);
+    canActivate(state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+        this.adalService.handleCallback();
+      var customLoginRedirect: string = this.configs.customRedirectAfterLogin;
+      if (this.adalService.userInfo) {
+        if (customLoginRedirect) {
+          this.router.navigate([customLoginRedirect]);
+       } else {
+          this.router.navigate(['']);
+        }
+            //this.router.navigate(['']);
 //            // var returnUrl = route.queryParams['returnUrl'];
 //            // if (!returnUrl) {
 //            //     this.router.navigate(['']);
 //            // } else {
 //            //     this.router.navigate([returnUrl], { queryParams: route.queryParams });
 //            // }
-//        }
-//        return false;
-//    }
+       }
+       return false;
+    }
 }

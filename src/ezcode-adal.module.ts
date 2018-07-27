@@ -12,7 +12,8 @@ import { EZCodeAdalComponentGuard } from './ezcode-adal-component.guard';
 import { EZCodeAdalCallbackGuard } from './ezcode-adal-callback.guard';
 
 @NgModule({
-    imports: [
+  imports: [
+    
         RouterModule.forChild([
             { path: 'id_token', component: IdTokenCallbackComponent, canActivate: [EZCodeAdalCallbackGuard] }, //, canActivate: [EZCodeAdalGuard]
             { path: 'access_token', component: AccesstokenCallbackComponent, canActivate: [EZCodeAdalCallbackGuard]} //, canActivate: [EZCodeAdalGuard] 
